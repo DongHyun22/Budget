@@ -15,7 +15,6 @@ $content = @(
     "ORACLE_PASSWORD=$(New-LocalSecret)"
     'APP_USER=BUDGET_APP'
     "APP_USER_PASSWORD=$(New-LocalSecret)"
-    "JOB_TOKEN=$(New-LocalSecret)"
     'ORACLE_PORT=11521'
     'APP_PORT=8080'
     'DB_URL=jdbc:oracle:thin:@localhost:11521/FREEPDB1'

@@ -1,3 +1,0 @@
-# Linux host must use Asia/Seoul timezone; verify with timedatectl.
-# crontab -e (replace project path; user must read .env)
-5 0 * * * /bin/bash /opt/it-new-edu/infra/daily-notifications.sh >> /opt/it-new-edu/daily-job.log 2>&1

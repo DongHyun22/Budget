@@ -1,6 +1,6 @@
 # HTTP/API 명세
 
-초기 화면은 JSP 서버 렌더링이다. 가계부 모달은 같은 세션으로 `/budget/ui/**` JSON 응답을 사용한다. 기존 HTML 화면/폼 경로도 유지한다. 사용자 변경 요청에 Spring Security CSRF가 필요하다. 전용 토큰으로 인증하는 내부 알림 작업 POST만 CSRF에서 제외한다. 날짜 yyyy-MM-dd, 월 yyyy-MM, 금액 원 단위 정수. 로그인 후 JSESSIONID 쿠키를 사용한다.
+초기 화면은 JSP 서버 렌더링이다. 가계부 모달은 같은 세션으로 `/budget/ui/**` JSON 응답을 사용한다. 기존 HTML 화면/폼 경로도 유지한다. 사용자 변경 요청에 Spring Security CSRF가 필요하다. 날짜 yyyy-MM-dd, 월 yyyy-MM, 금액 원 단위 정수. 로그인 후 JSESSIONID 쿠키를 사용한다.
 
 | 메서드 | URL | 입력 | 결과 |
 |---|---|---|---|
@@ -17,12 +17,9 @@
 | GET | /categories | 없음 | 본인/공용 목록 HTML |
 | POST | /categories | name | 개인 카테고리 생성 |
 | POST | /categories/{id} | name,active | 개인 이름/활성 상태 변경 |
-| GET | /notifications | 없음 | 본인 최근 알림 HTML |
-| POST | /notifications/{id}/read | ID | 읽음 후 목록 이동 |
-| POST | /internal/jobs/daily-notifications | X-Job-Token 헤더 | JSON {date,created}, 당일 배치 |
 | GET | /actuator/health | 없음 | 공개 상태만, 내부 상세 미공개 |
 
-비로그인은 로그인으로 이동, CSRF 누락 403, 본인 소유가 아닌 지출/알림은 404, 공용/타인 카테고리 수정은 거부. 검증 실패는 400 안내, 중복 입력은 409 또는 해당 폼 오류로 처리한다. 내부 작업 경로는 사용자 세션으로 실행할 수 없고 전용 긴 토큰 필수. 토큰 누락·오류 401. 날짜를 외부에서 지정하지 않고 서버 한국시간 기준 당일만 처리한다.
+비로그인은 로그인으로 이동, CSRF 누락 403, 본인 소유가 아닌 지출은 404, 공용/타인 카테고리 수정은 거부. 검증 실패는 400 안내, 중복 입력은 409 또는 해당 폼 오류로 처리한다. 기존 알림 API는 제거되었으며 내부 경로의 보안 예외도 제거했다.
 
 ## 가계부 모달용 JSON 계약
 

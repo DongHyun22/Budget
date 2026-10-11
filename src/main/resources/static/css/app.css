@@ -101,13 +101,6 @@ dialog::backdrop { background: var(--backdrop); }
 .category-row { display: flex; align-items: center; flex-wrap: wrap; gap: 14px; padding: 16px 0; border-bottom: 1px solid var(--line); }
 .category-row label:has(input[type="checkbox"]) { flex-direction: row; align-items: center; }
 .category-list { display: flex; gap: 10px; flex-wrap: wrap; }
-.notification-preview { border-left: 4px solid var(--accent); }
-.notification-list { list-style: none; padding: 0; }
-.notification-list li { padding: 20px 0; border-bottom: 1px solid var(--line); }
-.notification-list li:last-child { border-bottom: 0; }
-.notification-list form { display: inline; }
-.notification-list strong { font-size: 20px; overflow-wrap: anywhere; }
-.notification-list small { display: block; color: var(--muted); }
 .auth-page, .auth-shell { max-width: 540px; margin: 7vh auto; padding: 24px; }
 .auth-card { background: var(--paper); padding: 36px; border: 1px solid var(--line); border-top: 5px solid var(--primary); border-radius: 8px; }
 .auth-card form { display: grid; gap: 10px; }

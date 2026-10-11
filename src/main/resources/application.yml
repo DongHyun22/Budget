@@ -33,6 +33,3 @@ management:
   endpoint:
     health:
       show-details: never
-app:
-  jobs:
-    token: ${JOB_TOKEN:}

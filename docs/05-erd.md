@@ -1,5 +1,7 @@
 # ERD
 
+> 기존 알림 기능은 제거했지만 DAILY_NOTIFICATION 및 notification_seq는 적용된 V1 이력과 기존 데이터 보존을 위해 남아 있다. 아래 ERD는 보존된 물리 스키마도 포함한다.
+
 관계 정의와 상세 칼럼은 [테이블 정의서](05-database.md)와 [실제 Oracle DDL](../src/main/resources/db/migration/V1__budget_schema.sql)을 함께 확인한다.
 
 ![img.png](erd.png)

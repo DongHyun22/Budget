@@ -30,7 +30,7 @@
     <div class="metric"><span>월 예산 잔액</span><strong id="metric-remaining" class="${not empty summary.planAmount and summary.remaining lt 0 ? 'negative' : ''}"><c:choose><c:when test="${empty summary.planAmount}">미설정</c:when><c:otherwise><fmt:formatNumber value="${summary.remaining}"/>원</c:otherwise></c:choose></strong></div>
     <div class="metric"><span>하루 기준액</span><strong id="metric-base"><c:choose><c:when test="${empty summary.planAmount}">미설정</c:when><c:otherwise><fmt:formatNumber value="${summary.baseAmount}"/>원</c:otherwise></c:choose></strong></div>
   </section>
-  <div class="notice-strip"><p id="today-summary"><c:if test="${not empty todayAllowance and not empty summary.planAmount}">오늘 ${today} · 현재 남은 금액 <fmt:formatNumber value="${todayAllowance.remaining}"/>원</c:if></p><c:if test="${not empty dailyNotice}"><p class="muted">오늘 알림 · <c:out value="${dailyNotice.noticeDate}"/> 생성 당시 시작 금액 <fmt:formatNumber value="${dailyNotice.openingAmount}"/>원. 이후 기록은 현재 금액에 반영됩니다. <a href="${pageContext.request.contextPath}/notifications">알림 확인</a></p></c:if></div>
+  <div class="notice-strip"><p id="today-summary"><c:if test="${not empty todayAllowance and not empty summary.planAmount}">오늘 ${today} · 현재 남은 금액 <fmt:formatNumber value="${todayAllowance.remaining}"/>원</c:if></p></div>
   <section class="panel" aria-labelledby="ledger-heading">
     <div class="selection-toolbar"><div><p class="eyebrow">DAILY FLOW</p><h2 id="ledger-heading">일별 예산 흐름</h2></div><button id="open-plan" class="btn" type="button" disabled>월 예산 설정</button></div>
     <p id="ledger-help" class="muted">날짜를 선택한 뒤 상세를 열어 보세요. 더블클릭 또는 Enter로도 열 수 있습니다. 남은 금액은 다음 날로 이월되며, 다음 달에는 새로 시작합니다.</p>

@@ -1,5 +1,7 @@
 # ERD 및 테이블 정의
 
+> 기존 알림 기능은 제거했지만 DAILY_NOTIFICATION 및 notification_seq는 적용된 V1 이력과 기존 데이터 보존을 위해 남아 있다. 아래 ERD는 보존된 물리 스키마도 포함한다.
+
 Oracle Free / 애플리케이션 스키마 BUDGET_APP / 서비스 FREEPDB1. 영문 테이블/칼럼, 문자열은 VARCHAR2(... CHAR), 금액 NUMBER(14,0). ORM 자동 생성 대신 Flyway 버전 SQL을 기준으로 한다. PK는 테이블별 Oracle sequence, allocationSize=1. 기록 시각은 한국시간 TIMESTAMP.
 
 ![erd.png](erd.png)

@@ -21,19 +21,16 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        var jobRequest = new AntPathRequestMatcher("/internal/jobs/daily-notifications", "POST");
         var uiRequest = new AntPathRequestMatcher("/budget/ui/**");
         var defaultDenied = new AccessDeniedHandlerImpl();
         var loginEntryPoint = new LoginUrlAuthenticationEntryPoint("/login");
         return http
                 .authorizeHttpRequests(authorize -> authorize
                         .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR).permitAll()
-                        .requestMatchers(jobRequest).permitAll()
                         .requestMatchers("/internal/**").denyAll()
                         .requestMatchers("/signup", "/login", "/css/**", "/error").permitAll()
                         .requestMatchers(HttpMethod.GET, "/actuator/health").permitAll()
                         .anyRequest().authenticated())
-                .csrf(csrf -> csrf.ignoringRequestMatchers(jobRequest))
                 .exceptionHandling(errors -> errors
                         .authenticationEntryPoint((request, response, exception) -> {
                             if (!uiRequest.matches(request)) {

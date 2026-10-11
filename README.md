@@ -1,6 +1,6 @@
 # 하루예산 · 변동지출 가계부
 
-ETFGeniusGuide에서 회원과 변동지출 가계부 동작을 이관한 Spring Boot/JSP 프로젝트. 자체 이메일 회원가입·세션 로그인, 월 예산, 공용/개인 카테고리, 지출 관리, 일일 사용 가능 금액 알림을 제공한다.
+ETFGeniusGuide에서 회원과 변동지출 가계부 동작을 이관한 Spring Boot/JSP 프로젝트. 자체 이메일 회원가입·세션 로그인, 월 예산, 공용/개인 카테고리, 지출 관리를 제공한다.
 
 ## 기술 및 문서
 Java 17 · Spring Boot 3.5.16 · Gradle 8.8 · Spring MVC/Security/JPA · JSP/JSTL · Tomcat 실행 WAR · Oracle Free · Flyway.
@@ -41,7 +41,7 @@ docker compose --profile app up -d --build
 ```
 DB는 별도 영속 볼륨, 웹은 localhost:8080으로 연결한다. 이 Docker 설정은 로컬 개발용이며 운영 배포 완료를 의미하지 않는다.
 
-## Linux 일일 알림
-`infra/daily-notifications.sh`와 `infra/crontab.example`을 사용한다. 한국시간 00:05 실행, 회원·날짜별 중복 방지, 월 예산 없는 회원 생략. 처음 생성된 하루 시작 금액을 알림에 보존하고 가계부 화면은 최신 지출을 반영한다. [운영 문서](docs/07-operations.md)의 토큰·시간대·로그 설정을 먼저 읽는다.
+## 알림 배치 전환
+기존 알림 API·화면·cron 스크립트는 제거했다. 매일 한국시간 오전 7시에 모든 회원을 처리하는 Spring Batch chunk 작업은 아직 구현하지 않았다. [구현 안내](docs/10-spring-batch-guide.md)를 참고한다. 기존 알림 DB 테이블과 데이터는 마이그레이션 이력 보존을 위해 유지한다.
 
 GitLab 등록, Jenkins/SonarQube 연결, AWS 배포, Jennifer/Scouter 서버 연결은 다음 단계에서 진행한다.

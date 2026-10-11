@@ -10,6 +10,3 @@ spring:
       ddl-auto: create-drop
   flyway:
     enabled: false
-app:
-  jobs:
-    token: test-only-job-token-0123456789abcdef
