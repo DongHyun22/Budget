@@ -17,7 +17,7 @@ class BudgetMvcBaselineTest {
     @Autowired MockMvc mvc;
     @Autowired MemberService members;
 
-    @Test void dashboardWorksWithoutNotificationsAndRemovedRoutesAreUnavailable() throws Exception {
+    @Test void dashboardAndNotificationListWorkIndependently() throws Exception {
         String email = "dashboard-without-notices@example.test";
         members.signup("가계부", email, "Password123!", "Password123!");
         mvc.perform(get("/budget").with(user(email)))
@@ -26,7 +26,7 @@ class BudgetMvcBaselineTest {
                 .andExpect(model().attributeExists("summary", "categories", "today"))
                 .andExpect(model().attributeDoesNotExist("dailyNotice"));
         mvc.perform(get("/notifications").with(user(email)))
-                .andExpect(status().isNotFound());
+                .andExpect(status().isOk()).andExpect(view().name("notifications"));
         mvc.perform(post("/notifications/1/read").with(user(email)).with(csrf()))
                 .andExpect(status().isNotFound());
     }

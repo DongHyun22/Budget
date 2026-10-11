@@ -10,3 +10,10 @@ spring:
       ddl-auto: create-drop
   flyway:
     enabled: false
+  batch:
+    jdbc:
+      initialize-schema: always
+app:
+  batch:
+    notifications:
+      scheduling-enabled: false

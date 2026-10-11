@@ -1,6 +1,6 @@
 # 실행 검증 기록
 
-> 아래 알림 검증 내용은 제거 전 구현의 과거 기록이다. 현재 알림 코드·화면·작업 API·cron은 제거되었으며 신규 Spring Batch는 아직 구현하지 않았다. 현재 변경 검증 결과는 문서 마지막에 기록한다.
+> 이 문서는 각 시점의 변경 기록을 보존한다. 아래 제거 검증 이후 Spring Batch 알림이 다시 구현됐다. 최신 결과는 문서 마지막을 확인한다.
 
 ## 최신: 일별 가계부 웹앱 개편 (2026-09-22)
 
@@ -111,3 +111,9 @@ Docker: `docker compose --profile app up -d` 후 `/actuator/health`의 `{"status
 - clean test bootWar 성공: Java 26개 통과. JS 18개 통과. WAR의 이전 budget/member/notification 패키지 클래스 없음.
 - Docker 8080 배포 후 health UP, 로그인 JSP 정상 렌더링, 비인증 가계부 접근 302 확인. DB 마이그레이션 변경 없음.
 - Java LSP는 jdtls 미설치로 미실행. 독립 검토는 사용 한도로 완료하지 못했으며 브라우저 전체 사용자 흐름 검증은 미수행. 컴파일·통합 테스트·HTTP 확인으로 검증 범위를 한정한다.
+
+## Spring Batch 일일 알림 (2026-10-12)
+- `test bootWar` 성공. Batch 통합 테스트 251명 처리, 두 번째 chunk 실패·재시작, 같은 날짜 중복 방지, 스냅샷 유지 검증 통과. 알림 화면 권한/CSRF 테스트 통과.
+- Docker에서 Flyway V2·V3 적용, 앱 포트 8080 유지, `/actuator/health`는 `UP`.
+- 스케줄은 매일 Asia/Seoul 07:00. 실제 정기 실행은 해당 시각부터 시작한다. Oracle 수동 Job 실행과 브라우저 화면 확인은 이번 검증에 포함하지 않았다.
+- 독립 요구사항·코드·보안·맥락 검토에서 구현 차단 사항 없음.

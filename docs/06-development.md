@@ -6,21 +6,26 @@ src/main/java/kr/co/budget/
   api/
     controller/
       member/               회원 화면·요청
+      notification/         알림 목록·읽음 요청
       budget/               가계부 화면·JSON 요청
         response/           화면 응답 DTO
         exception/          가계부 JSON 예외 처리
     service/
       member/               회원·인증 업무
+      notification/         알림 조회·소유권·읽음 처리
       budget/               예산·카테고리·지출 업무
         dto/                내부 계산·조회 결과
         calculator/         일별 예산 계산
         validation/         입력 검사
   domain/
+    notification/           알림 Entity
+      repository/           알림 DB 접근
     member/                 회원 Entity
       repository/           회원 DB 접근
     budget/                 예산·분류·지출 Entity
       repository/           가계부 DB 접근
   config/                   보안·시각 설정
+  batch/notification/       config·reader·processor·writer·listener·scheduler
   common/exception/         공통 예외·MVC 예외 처리
 src/main/resources/db/migration/  Oracle Flyway SQL
 src/main/webapp/WEB-INF/views/    JSP
@@ -50,5 +55,5 @@ Oracle 연결의 Host 127.0.0.1, Port 11521, Service Name FREEPDB1, User BUDGET_
 
 테스트용 H2를 쓰는 경우 단위/빠른 통합검증 보조에만 사용한다. Oracle 연결·DDL·JSP WAR의 실제 검증을 별도로 수행한다.
 
-## 알림 재구현
-기존 notification 패키지는 제거했다. batch 패키지는 [Spring Batch 구현 안내](10-spring-batch-guide.md)의 제안이며 아직 생성하지 않았다.
+## 알림 배치
+`batch/notification`에서 chunk=100으로 전체 회원의 오늘 남은 금액을 계산·저장한다. [Spring Batch 구현 안내](10-spring-batch-guide.md)에 파일별 역할과 실행 명령을 정리했다.

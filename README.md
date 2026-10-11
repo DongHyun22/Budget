@@ -42,6 +42,6 @@ docker compose --profile app up -d --build
 DB는 별도 영속 볼륨, 웹은 localhost:8080으로 연결한다. 이 Docker 설정은 로컬 개발용이며 운영 배포 완료를 의미하지 않는다.
 
 ## 알림 배치 전환
-기존 알림 API·화면·cron 스크립트는 제거했다. 매일 한국시간 오전 7시에 모든 회원을 처리하는 Spring Batch chunk 작업은 아직 구현하지 않았다. [구현 안내](docs/10-spring-batch-guide.md)를 참고한다. 기존 알림 DB 테이블과 데이터는 마이그레이션 이력 보존을 위해 유지한다.
+매일 한국시간 오전 7시에 Spring Batch가 모든 회원의 오늘 남은 금액을 계산하여 웹 알림으로 저장한다(chunk=100). 예산 미설정 회원에게는 설정 안내를 제공한다. 상단 **알림** 메뉴에서 확인한다. [구조·설정·수동 실행 안내](docs/10-spring-batch-guide.md)를 참고한다. 기존 알림 DB 테이블과 데이터는 보존하며 새 알림은 MEMBER_NOTIFICATION에 저장한다.
 
 GitLab 등록, Jenkins/SonarQube 연결, AWS 배포, Jennifer/Scouter 서버 연결은 다음 단계에서 진행한다.

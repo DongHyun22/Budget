@@ -1,9 +1,9 @@
 # 운영 및 후속 배포 설계
 
 ## 일일 작업 전환
-기존 내부 알림 API, 전용 작업 토큰 설정, cron 스크립트는 제거했다. 외부에 등록했던 예약 작업이 있다면 운영 환경에서도 해제한다. 새 Spring Batch 작업은 아직 없으며, 목표는 매일 Asia/Seoul 오전 7시 전체 회원 처리다. [설계 안내](10-spring-batch-guide.md)를 참고한다.
+기존 내부 알림 API, 전용 작업 토큰 설정, cron 스크립트는 제거했다. 외부에 등록했던 예약 작업이 있다면 운영 환경에서도 해제한다. Spring Batch가 매일 Asia/Seoul 오전 7시에 전체 회원을 chunk=100으로 처리한다. 놓친 실행·실패 재시작은 [수동 실행 안내](10-spring-batch-guide.md)를 따른다. 오전 7시에 앱이 실행 중이어야 한다.
 
-기존 알림 테이블·데이터와 적용된 V1 마이그레이션은 유지한다. 새 데이터 구조가 정해지면 V2 이후 마이그레이션으로 변경한다.
+기존 알림 테이블·데이터와 적용된 V1은 유지한다. V2는 Batch 메타데이터, V3는 MEMBER_NOTIFICATION을 추가한다. 실행 결과는 BATCH_JOB_EXECUTION.STATUS와 앱 로그에서 확인한다. 완료한 날짜는 다시 실행하지 않으며, 실패한 날짜는 같은 noticeDate로 재시작한다. 강제 종료로 STARTED 상태가 남은 경우 자동 복구하지 않는다.
 
 ## 향후 CI/CD
 GitLab push → Jenkins checkout → 테스트·WAR → SonarQube 분석/Quality Gate → Docker build → Registry push → AWS Linux에서 이미지 digest 배포 → health·화면 smoke → 실패 시 이전 이미지 복귀. DB 변경은 하위 호환을 유지하며 이미지 롤백과 DB 롤백을 동일시하지 않는다. DB 백업/복구는 배포 이전 확인.
