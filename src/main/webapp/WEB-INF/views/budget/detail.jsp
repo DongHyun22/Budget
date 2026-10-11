@@ -1,0 +1,10 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<!doctype html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>지출 상세 · 하루예산</title><link rel="stylesheet" href="${pageContext.request.contextPath}/css/theme.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/app.css"></head><body>
+<c:set var="activePage" value="budget"/>
+<%@ include file="../fragments/header.jspf" %>
+<main id="main-content" class="shell"><div class="page-heading"><div><p class="eyebrow">SPEND DETAIL</p><h1>지출 상세 / 수정</h1><p class="muted">등록 날짜는 유지됩니다. 다른 날짜로 옮기려면 삭제 후 다시 등록하세요.</p></div><a class="btn" href="${pageContext.request.contextPath}/budget?ym=${ym}">목록으로</a></div>
+<section class="panel"><h2>${spend.date} 지출</h2><form method="post" action="${pageContext.request.contextPath}/budget/spends/${spend.id}" class="form-grid"><input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"><label for="category">카테고리</label><select id="category" name="categoryId" required><c:forEach items="${categories}" var="category"><option value="${category.id}" ${category.id eq spend.categoryId ? 'selected' : ''}><c:out value="${category.name}"/><c:if test="${not category.active}"> (비활성 · 현재 기록 유지 가능)</c:if></option></c:forEach></select><label for="amount">금액 (원)</label><input id="amount" name="amount" type="number" min="1" max="99999999999999" step="1" value="${spend.amount}" required><label for="memo">메모 (선택)</label><input id="memo" name="memo" maxlength="200" value="<c:out value='${spend.memo}'/>"><button class="btn primary" type="submit">수정 저장</button></form></section>
+<section class="panel"><h2>지출 삭제</h2><p class="muted">삭제하면 이 지출이 월별 합계와 일별 예산에서 제외됩니다.</p><form method="post" action="${pageContext.request.contextPath}/budget/spends/${spend.id}/delete"><input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"><button class="btn danger" type="submit">이 지출 삭제</button></form></section></main><%@ include file="../fragments/footer.jspf" %>
+</body></html>

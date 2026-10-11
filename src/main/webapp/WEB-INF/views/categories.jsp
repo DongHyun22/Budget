@@ -1,0 +1,11 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<!doctype html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>카테고리 · 하루예산</title><link rel="stylesheet" href="${pageContext.request.contextPath}/css/theme.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/app.css"></head><body>
+<c:set var="activePage" value="categories"/>
+<%@ include file="fragments/header.jspf" %>
+<main id="main-content" class="shell"><div class="page-heading"><div><p class="eyebrow">CATEGORIES</p><h1>카테고리 관리</h1><p class="muted">지출 분류를 직접 관리하세요. 비활성화해도 지난 기록은 유지됩니다.</p></div></div>
+<section class="panel"><h2>개인 카테고리 추가</h2><form method="post" action="${pageContext.request.contextPath}/categories" class="form-grid"><input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"><label for="new-name">이름</label><input id="new-name" name="name" maxlength="50" required placeholder="예: 커피, 자기계발"><button class="btn primary" type="submit">카테고리 추가</button></form></section>
+<section class="panel"><h2>공용 카테고리</h2><p class="muted">모든 회원에게 제공되는 기본 분류입니다.</p><div class="category-list"><c:forEach items="${categories}" var="category"><c:if test="${empty category.memberId}"><span class="badge"><c:out value="${category.name}"/></span></c:if></c:forEach></div></section>
+<section class="panel"><h2>개인 카테고리</h2><c:set var="hasPersonal" value="false"/><c:forEach items="${categories}" var="category"><c:if test="${not empty category.memberId}"><c:set var="hasPersonal" value="true"/><form method="post" action="${pageContext.request.contextPath}/categories/${category.id}" class="category-row"><input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"><label for="name-${category.id}">이름</label><input id="name-${category.id}" name="name" maxlength="50" required value="<c:out value='${category.name}'/>"><label for="active-${category.id}"><input id="active-${category.id}" type="checkbox" name="active" value="true" ${category.active ? 'checked' : ''}> 활성</label><button class="btn" type="submit">변경 저장</button></form></c:if></c:forEach><c:if test="${not hasPersonal}"><p class="empty-state">개인 카테고리가 없습니다. 자주 사용하는 분류를 추가하세요.</p></c:if></section></main><%@ include file="fragments/footer.jspf" %>
+</body></html>

@@ -1,0 +1,28 @@
+/* Web interpretation of WGSN/Coloro 2027 Luminous Blue; not an official HEX. */
+:root {
+  --primary: #2446C8;
+  --primary-hover: #193399;
+  --blue: var(--primary);
+  --ink: #17213B;
+  --muted: #526078;
+  --paper: #FFFFFF;
+  --bg: #F4F6FC;
+  --line: #D5DCEC;
+  --control-border: #75829A;
+  --selected: #E8EDFF;
+  --subtle: #EDF1F9;
+  --accent: #08685F;
+  --accent-surface: #EAF6F3;
+  --danger: #A22E3B;
+  --danger-hover: #81232E;
+  --danger-surface: #FFF1F2;
+  --deficit-surface: #FFE3E3;
+  --deficit-border: #F2A3A3;
+  --focus: #2446C8;
+  --header: #17213B;
+  --on-primary: #FFFFFF;
+  --header-control: #A9B9DE;
+  --backdrop: #17213BA6;
+  --shadow: #17213B12;
+  --transparent: transparent;
+}

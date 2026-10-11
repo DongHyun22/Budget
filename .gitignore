@@ -1,0 +1,11 @@
+.env
+.env.*
+!.env.example
+.gradle/
+build/
+out/
+.idea/
+*.iml
+*.log
+.omo/
+.local/

@@ -1,0 +1,18 @@
+<%@ page pageEncoding="UTF-8" %>
+<a class="skip-link" href="#main-content">본문으로 바로가기</a>
+<header class="topbar">
+    <div class="shell">
+        <a class="brand" href="<c:url value='/budget'/>">하루예산<span class="brand-caption">DAILY BUDGET</span></a>
+        <c:if test="${not publicPage}">
+            <nav class="nav" aria-label="주 메뉴">
+                <a href="<c:url value='/budget'/>" ${activePage eq 'budget' ? 'aria-current="page"' : ''}>가계부</a>
+                <a href="<c:url value='/categories'/>" ${activePage eq 'categories' ? 'aria-current="page"' : ''}>카테고리</a>
+                <a href="<c:url value='/notifications'/>" ${activePage eq 'notifications' ? 'aria-current="page"' : ''}>알림</a>
+                <form method="post" action="<c:url value='/logout'/>">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+                    <button type="submit">로그아웃</button>
+                </form>
+            </nav>
+        </c:if>
+    </div>
+</header>

@@ -1,0 +1,40 @@
+<%@ page pageEncoding="UTF-8" %>
+<dialog id="day-dialog" class="dialog" aria-labelledby="day-title">
+  <div class="dialog-header"><div><p class="eyebrow">DAY BY DAY</p><h2 id="day-title" tabindex="-1">선택일 지출</h2></div><button type="button" class="btn" data-close="day" aria-label="날짜 상세 닫기">닫기</button></div>
+  <div class="dialog-body">
+    <p id="day-status" class="status-message" role="status" aria-live="polite"></p>
+    <div id="day-recovery" hidden><button type="button" class="btn" data-retry>조회 다시 시도</button> <a href="${pageContext.request.contextPath}/login">다시 로그인</a></div>
+    <p id="day-totals" class="muted"></p>
+    <section aria-labelledby="day-list-title"><h3 id="day-list-title">이 날의 지출</h3><div id="day-spends" class="day-spends"></div></section>
+    <button id="day-add" class="btn primary" type="button">+ 지출 입력</button>
+    <section id="spend-editor" hidden aria-labelledby="spend-form-title">
+      <h3 id="spend-form-title">지출 입력</h3>
+      <form id="spend-form" class="dialog-form">
+        <label for="spend-date">날짜</label><input id="spend-date" name="date" type="date" readonly required>
+        <p class="muted">날짜를 바꾸려면 닫은 뒤 다른 날짜를 선택하세요.</p>
+        <label for="category">카테고리</label><select id="category" name="categoryId" required><option value="">선택하세요</option></select>
+        <button id="show-category" class="btn" type="button">+ 카테고리 추가</button>
+        <label for="spend-amount">금액 (원)</label><input id="spend-amount" name="amount" type="number" inputmode="numeric" min="1" max="99999999999999" step="1" required>
+        <label for="memo">메모 (선택)</label><input id="memo" name="memo" maxlength="200" placeholder="최대 200자">
+        <div class="dialog-actions"><button id="save-spend" class="btn primary" type="submit">지출 저장</button><button id="cancel-spend" class="btn" type="button">입력 취소</button></div>
+      </form>
+      <form id="category-form" class="inline-category" hidden>
+        <label for="category-name">새 카테고리 이름</label><input id="category-name" name="name" maxlength="50" required>
+        <p class="muted">카테고리는 별도로 저장되며 지출 입력을 취소해도 유지됩니다.</p>
+        <div class="dialog-actions"><button class="btn" type="submit">카테고리 만들기</button><button id="cancel-category" class="btn" type="button">추가 취소</button></div>
+      </form>
+    </section>
+  </div>
+</dialog>
+<dialog id="plan-dialog" class="dialog" aria-labelledby="plan-title">
+  <div class="dialog-header"><div><p class="eyebrow">MONTHLY PLAN</p><h2 id="plan-title">월 예산 설정</h2></div><button class="btn" type="button" data-close="plan" aria-label="월 예산 닫기">닫기</button></div>
+  <div class="dialog-body">
+    <p id="plan-status" class="status-message" role="status" aria-live="polite"></p>
+    <div id="plan-recovery" hidden><a href="${pageContext.request.contextPath}/login">다시 로그인</a></div>
+    <form id="plan-form" class="dialog-form">
+      <label for="plan-amount"><span id="plan-month"></span> 예산 (원)</label><input id="plan-amount" name="amount" type="number" inputmode="numeric" min="1" max="99999999999999" step="1" required>
+      <p class="muted">월 예산을 일수로 나눈 기준액에 전날 잔액을 이월합니다. 나눗셈의 나머지는 월말 미배정 잔액으로 남습니다.</p>
+      <div class="dialog-actions"><button class="btn primary" type="submit">예산 저장</button><button class="btn" type="button" data-close="plan">취소</button></div>
+    </form>
+  </div>
+</dialog>
